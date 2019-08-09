@@ -45,15 +45,6 @@ class MyComponent extends React.Component {
         return <div>Loading...</div>;
       } else {
 
-        const items = []
-        for(var i =0 ; i < response.length ; i++){
-            country = response[i].country;
-           var c = country;
-        for (const [index, value] of response.entries()) {
-          items.push(<li key={index}>{value}</li>)
-        }
-        }
-      
        
          return(
                <div className="card-body">
