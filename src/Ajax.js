@@ -1,7 +1,5 @@
 
 import React from 'react';
-
-var country = "";
 var response  = "";
 
 class MyComponent extends React.Component {
@@ -17,22 +15,16 @@ class MyComponent extends React.Component {
       .then(res => res.json())
         .then(
           (result) => {
-            response = result.free;
+            response = result.paid;
+            console.log(result);
             this.setState({
              list: response
             });
         }
-          // Note: it's important to handle errors here
-          // instead of a catch() block so that we don't swallow
-          // exceptions from actual bugs in components.
-          
-        )
-    }
-
-   
-   
+      );
   
-    render() {
+    }
+   render() {
        console.log(this.state.list);
        for (var i = 0; i < this.state.list.length  ; i++){
            console.log(this.state.list[i].country);
@@ -43,16 +35,33 @@ class MyComponent extends React.Component {
         {this.state.list.map((list) => {
           return (<div>
             <div className="row">
-            <div className="col-sm-12">
+            <div className="col-sm-4">
             <div className="card">
             <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text"> {JSON.stringify(list)}</p>
+            <h5 className="card-title">{list.confName}</h5>
+            <p className="card-text"> {list.country}</p>
             </div>
             </div>
+           </div>
+           <div className="col-sm-4">
+           <div className="card">
+           <div className="card-body">
+           <h5 className="card-title">{list.confName}</h5>
+           <p className="card-text"> {list.country}</p>
+           </div>
+           </div>
           </div>
+          <div className="col-sm-4">
+          <div className="card">
+          <div className="card-body">
+          <h5 className="card-title">{list.confName}</h5>
+          <p className="card-text"> {list.country}</p>
+          </div>
+          </div>
+         </div>
           </div>
           <br></br>
+          
           </div>)
       })}
         </div>
