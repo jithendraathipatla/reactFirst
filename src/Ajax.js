@@ -1,19 +1,17 @@
 
 import React from 'react';
-import { appendFile } from 'fs';
+
 var country = "";
 var response  = "";
 
 class MyComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        error: null,
-        isLoaded: false,
-        items: []
-      };
+  constructor(){
+    super();
+    this.state = {
+        list: [],
+        error: null
     }
-  
+}
     componentDidMount() {
       fetch("https://o136z8hk40.execute-api.us-east-1.amazonaws.com/dev/get-list-of-conferences")
       .then(res => res.json())
@@ -21,8 +19,7 @@ class MyComponent extends React.Component {
           (result) => {
             response = result.free;
             this.setState({
-              isLoaded: true,
-              items: result.items
+             list: response
             });
         }
           // Note: it's important to handle errors here
@@ -36,25 +33,30 @@ class MyComponent extends React.Component {
    
   
     render() {
-       
-      const { error, isLoaded, items } = this.state;
-    
-      if (error) {
-        return <div>Error: {error.message}</div>;
-      } else if (!isLoaded) {
-        return <div>Loading...</div>;
-      } else {
-
-       
-         return(
-               <div className="card-body">
-                  <h5 className="card-title">{items}</h5>
-                </div>
-           
-        );
-    
-      }
-    }
+       console.log(this.state.list);
+       for (var i = 0; i < this.state.list.length  ; i++){
+           console.log(this.state.list[i].country);
+       }
+      return (
+        <div>
+          
+        {this.state.list.map((list) => {
+          return (<div>
+            <div className="row">
+            <div className="col-sm-12">
+            <div className="card">
+            <div className="card-body">
+            <h5 className="card-title">Special title treatment</h5>
+            <p className="card-text"> {JSON.stringify(list)}</p>
+            </div>
+            </div>
+          </div>
+          </div>
+          <br></br>
+          </div>)
+      })}
+        </div>
+      )
   }
-
+}
   export default MyComponent
